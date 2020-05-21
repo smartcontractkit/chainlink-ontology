@@ -28,8 +28,10 @@ ChainlinkFulfilledEvent = RegisterAction("chainlinkFulfilledEvent", "requestId")
 
 ChainlinkCancelledEvent = RegisterAction("chainlinkCancelledEvent", "requestId")
 
+# What is this first parameter?
 ChainlinkCall = RegisterAppCall('db6f26fb0f217d6762aa3d6d38e827789a3128d1', 'operation', 'args')
 
+# Why are we hard coding an owner address?
 OWNER = Base58ToAddress("AbG3ZgFrMK6fqwXWR1WkQ1d1EYVunCwknu")
 
 def Main(operation, args):
@@ -95,13 +97,15 @@ def Main(operation, args):
     return False
 
 
+# Is there any concept of internal functions? If so this should be one.
 def buildChainlinkRequest(_specId, callbackAddress, callbackFunction):
     return ChainlinkCall('initialize', [_specId, callbackAddress, callbackFunction])
 
-
+# As should this one.
 def sendChainlinkRequest(caller, req, payment):
     return sendChainlinkRequestTo(caller, Get(GetContext(), ORACLE_ADDRESS), req, payment)
 
+# And this one.
 def sendChainlinkRequestTo(caller, oracle, req, payment):
     RequireWitness(caller)
     requestCount = Get(GetContext(), REQUEST_COUNT)

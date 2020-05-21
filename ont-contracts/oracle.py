@@ -12,6 +12,7 @@ EXPIRY_TIME = 30
 
 INITIALIZED = "INIT"
 MINIMUM_CONSUMER_GAS_LIMIT = 100000000
+# Why hard-coded address?
 OWNER = Base58ToAddress("AbG3ZgFrMK6fqwXWR1WkQ1d1EYVunCwknu")
 LINKTOKEN_ADDRESS = 'linktokenAddress'
 COMMITMENTS_PRIFX = 'commitments'

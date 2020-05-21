@@ -24,6 +24,7 @@ SYMBOL = 'LINK'
 DECIMALS = 18
 test = 10 ** 18
 FACTOR = 100000000000000000
+# Why is this hard-coded?
 OWNER = Base58ToAddress("AbG3ZgFrMK6fqwXWR1WkQ1d1EYVunCwknu")
 TOTAL_AMOUNT = 1000000000
 BALANCE_PREFIX = bytearray(b'\x01')
