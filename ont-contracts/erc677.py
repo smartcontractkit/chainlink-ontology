@@ -20,9 +20,10 @@ ContractAddress = GetExecutingScriptHash()
 
 ctx = GetContext()
 
-NAME = 'MyToken'
-SYMBOL = 'MYT'
+NAME = 'ChainLink Token'
+SYMBOL = 'LINK'
 DECIMALS = 18
+test = 10 ** 18
 FACTOR = 100000000000000000
 OWNER = Base58ToAddress("AbG3ZgFrMK6fqwXWR1WkQ1d1EYVunCwknu")
 # OWNER = bytearray(b'\x61\x6f\x2a\x4a\x38\x39\x6f\xf2\x03\xea\x01\xe6\xc0\x70\xae\x42\x1b\xb8\xce\x2d')

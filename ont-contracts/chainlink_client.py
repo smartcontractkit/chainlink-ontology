@@ -6,7 +6,7 @@ from ontology.interop.System.ExecutionEngine import GetExecutingScriptHash, GetC
 from ontology.interop.System.Runtime import CheckWitness, Serialize, Notify
 from ontology.interop.System.Storage import GetContext, Get, Put, Delete
 from ontology.libont import bytearray_reverse
-# bb7513b23fae0117eae21eea2cd732e1cc267e7e
+
 AMOUNT_OVERRIDE = 0
 
 SENDER_OVERRIDE = 0

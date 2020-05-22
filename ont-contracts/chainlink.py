@@ -1,7 +1,6 @@
 ############ Chainlink Library#########
 from ontology.interop.System.App import RegisterAppCall
 
-defaultBufferSize = 256
 BufferCall = RegisterAppCall('d5f12664535717af51f52fe2aa88a18d327ea1b9', 'operation', 'args')
 CBORCall = RegisterAppCall('3f75e2814021abed8a616da8d408d1347cac988f', 'operation', 'args')
 

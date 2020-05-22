@@ -101,14 +101,14 @@ def Main(operation, args):
 
 def init(link):
     RequireWitness(OWNER)
-    # inited = Get(GetContext(), INITIALIZED)
-    # if inited:
-    #     Notify(["idiot admin, you have initialized the contract"])
-    #     return False
-    # else:
-    Put(GetContext(), INITIALIZED, 1)
-    Put(GetContext(), LINKTOKEN_ADDRESS, link)
-    Notify(["Initialized contract successfully!!!!!!!!"])
+    inited = Get(GetContext(), INITIALIZED)
+    if inited:
+        Notify(["idiot admin, you have initialized the contract"])
+        return False
+    else:
+        Put(GetContext(), INITIALIZED, 1)
+        Put(GetContext(), LINKTOKEN_ADDRESS, link)
+        Notify(["Initialized contract successfully!"])
     return True
 
 
@@ -117,7 +117,6 @@ def oracleRequest(spender, payment, specId, callbackAddress, callbackFunctionId,
     onlyLINK()
     RequireWitness(spender)
     payment = payment + 0
-    # TODO
     requestId = sha256(Serialize([callbackAddress, spender, nonce]))
     assert (not Get(GetContext(), concatKey(COMMITMENTS_PRIFX, requestId)))
     expiration = GetTime() + EXPIRY_TIME
@@ -175,7 +174,6 @@ def cancelOracleRequest(sender, requestId, payment, callbackAddress, callbackFun
 
     originParamsHash = Get(GetContext(), concatKey(COMMITMENTS_PRIFX, requestId))
     assert (paramsHash == originParamsHash)
-    # Notify([originParamsHash, paramsHash, sender, requestId, payment, callbackAddress, callbackFunctionId, expiration])
     assert (expiration <= GetTime())
     Delete(GetContext(), concatKey(COMMITMENTS_PRIFX, requestId))
 
