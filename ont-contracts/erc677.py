@@ -11,7 +11,6 @@ from ontology.interop.System.Runtime import Notify, CheckWitness
 from ontology.interop.System.Storage import GetContext, Get, Put, Delete
 from ontology.libont import bytearray_reverse
 
-# a83e612e126b467ec805968f9c1ce147617187e5
 TransferEvent = RegisterAction("transfer", "from", "to", "amount")
 ApprovalEvent = RegisterAction("approval", "owner", "spender", "amount")
 TransferAndCallEvent = RegisterAction("transferAndCallEvent", "from", "to", "amount", "data")
@@ -26,7 +25,6 @@ DECIMALS = 18
 test = 10 ** 18
 FACTOR = 100000000000000000
 OWNER = Base58ToAddress("AbG3ZgFrMK6fqwXWR1WkQ1d1EYVunCwknu")
-# OWNER = bytearray(b'\x61\x6f\x2a\x4a\x38\x39\x6f\xf2\x03\xea\x01\xe6\xc0\x70\xae\x42\x1b\xb8\xce\x2d')
 TOTAL_AMOUNT = 1000000000
 BALANCE_PREFIX = bytearray(b'\x01')
 APPROVE_PREFIX = b'\x02'
