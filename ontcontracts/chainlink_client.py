@@ -1,11 +1,14 @@
+OntCversion = '2.0.0'
+
 from ontology.builtins import sha256, concat
 from ontology.interop.Ontology.Runtime import Base58ToAddress
 from ontology.interop.System.Action import RegisterAction
-from ontology.interop.System.App import DynamicAppCall, RegisterAppCall
+from ontology.interop.System.App import DynamicAppCall
 from ontology.interop.System.ExecutionEngine import GetExecutingScriptHash, GetCallingScriptHash
 from ontology.interop.System.Runtime import CheckWitness, Serialize, Notify
 from ontology.interop.System.Storage import GetContext, Get, Put, Delete
 from ontology.libont import bytearray_reverse
+from ontcontracts.lib.chainlink import initialize
 
 AMOUNT_OVERRIDE = 0
 
@@ -27,8 +30,6 @@ ChainlinkRequestedEvent = RegisterAction("chainlinkRequestedEvent", "requestId")
 ChainlinkFulfilledEvent = RegisterAction("chainlinkFulfilledEvent", "requestId")
 
 ChainlinkCancelledEvent = RegisterAction("chainlinkCancelledEvent", "requestId")
-
-ChainlinkCall = RegisterAppCall('db6f26fb0f217d6762aa3d6d38e827789a3128d1', 'operation', 'args')
 
 OWNER = Base58ToAddress("AbG3ZgFrMK6fqwXWR1WkQ1d1EYVunCwknu")
 
@@ -96,7 +97,7 @@ def Main(operation, args):
 
 
 def buildChainlinkRequest(_specId, callbackAddress, callbackFunction):
-    return ChainlinkCall('initialize', [_specId, callbackAddress, callbackFunction])
+    return initialize(_specId, callbackAddress, callbackFunction)
 
 
 def sendChainlinkRequest(caller, req, payment):

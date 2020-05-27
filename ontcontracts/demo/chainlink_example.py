@@ -1,17 +1,18 @@
+OntCversion = '2.0.0'
+
 from ontology.builtins import concat
 from ontology.interop.Ontology.Runtime import Base58ToAddress
-from ontology.interop.System.App import RegisterAppCall, DynamicAppCall
+from ontology.interop.System.App import DynamicAppCall
 from ontology.interop.System.ExecutionEngine import GetExecutingScriptHash, GetCallingScriptHash
 from ontology.interop.System.Runtime import CheckWitness, Notify
 from ontology.interop.System.Storage import GetContext, Put, Get
 from ontology.libont import bytearray_reverse
+from ontcontracts.lib.chainlink import add, addInt
 
 CURRENT_PRICE = 'CurrentPrice'
+CHAINLINK_CLIENT = 'ChainlinkClient'
 
 OWNER = Base58ToAddress('AbG3ZgFrMK6fqwXWR1WkQ1d1EYVunCwknu')
-
-ChainlinkCall = RegisterAppCall('db6f26fb0f217d6762aa3d6d38e827789a3128d1', 'operation', 'args')
-ChainlinkClientCall = RegisterAppCall('da8aed3a33ba8e7159a991070ea19002ebb06c6f', 'operation', 'args')
 
 ContractAddress = GetExecutingScriptHash()
 
@@ -41,24 +42,37 @@ def Main(operation, args):
         expiration = args[3]
         return cancelRequest(requestId, payment, callBackFunc, expiration)
 
+    if operation == 'setChainlinkClient':
+        assert (len(args) == 1)
+        address = args[0]
+        return setChainlinkClient(address)
+
     return False
 
 
 def requestEthereumPrice(oracle, jobId, payment):
     assert (CheckWitness(OWNER))
-    req = ChainlinkClientCall('buildChainlinkRequest', [jobId, ContractAddress, 'fulfill'])
-    req = ChainlinkCall('add', [req, "get", "https://min-api.cryptocompare.com/data/price?fsym=ETH&tsyms=USD"])
-    req = ChainlinkCall('add', [req, "path", "USD"])
-    req = ChainlinkCall('addInt', [req, "times", 100])
-    # Notify([OWNER, oracle, req, payment])
-    assert (ChainlinkClientCall('sendChainlinkRequestTo', [OWNER, oracle, req, payment]))
+    chainlinkClient = Get(GetContext(), CHAINLINK_CLIENT)
+    req = DynamicCallFunctionResult(bytearray_reverse(chainlinkClient), 'buildChainlinkRequest', [jobId, ContractAddress, 'fulfill'])
+    req = add(req, "get", "https://min-api.cryptocompare.com/data/price?fsym=ETH&tsyms=USD")
+    req = add(req, "path", "USD")
+    req = addInt(req, "times", 100)
+    assert (DynamicCallFunction(bytearray_reverse(chainlinkClient), 'sendChainlinkRequestTo', [OWNER, oracle, req, payment]))
     return True
 
 
 def fulfill(requestId, price):
-    assert (ChainlinkClientCall('recordChainlinkFulfillment', [bytearray_reverse(GetCallingScriptHash()), requestId]))
-    # Notify(['test'])
+    chainlinkClient = Get(GetContext(), CHAINLINK_CLIENT)
+    assert (DynamicCallFunction(bytearray_reverse(chainlinkClient), 'recordChainlinkFulfillment', [bytearray_reverse(GetCallingScriptHash()), requestId]))
+
     Put(GetContext(), CURRENT_PRICE, price)
+    return True
+
+
+def setChainlinkClient(address):
+    assert (CheckWitness(OWNER))
+    assert (len(address) == 20)
+    Put(GetContext(), CHAINLINK_CLIENT, address)
     return True
 
 
@@ -68,7 +82,8 @@ def getCurrentPrice():
 
 def cancelRequest(requestId, payment, callBackFunc, expiration):
     assert (CheckWitness(OWNER))
-    assert (ChainlinkClientCall('cancelChainlinkRequest', [OWNER, requestId, payment, callBackFunc, expiration]))
+    chainlinkClient = Get(GetContext(), CHAINLINK_CLIENT)
+    assert (DynamicCallFunction(bytearray_reverse(chainlinkClient), 'cancelChainlinkRequest', [OWNER, requestId, payment, callBackFunc, expiration]))
     return True
 
 

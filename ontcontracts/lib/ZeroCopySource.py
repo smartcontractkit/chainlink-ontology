@@ -1,5 +1,3 @@
-OntCversion = '2.0.0'
-
 '''
 Zero Copy Source contract to help deserialize data or struct from a series of bytes 
 
@@ -7,84 +5,11 @@ Started: Nov 26th, 2019
 Author: Yinghao Liu
 '''
 
-from ontology.interop.System.Runtime import Notify
-from ontology.libont import str
 from ontology.builtins import concat
 
 '''
 If the returned offset is -1, means the offset is out of the buff's range
 '''
-
-
-def Main(operation, args):
-    if operation == "NextBool":
-        assert (len(args) == 2)
-        buff = args[0]
-        offset = args[1]
-        return NextBool(buff, offset)
-    if operation == "NextByte":
-        assert (len(args) == 2)
-        buff = args[0]
-        offset = args[1]
-        return NextByte(buff, offset)
-    if operation == "NextUint8":
-        assert (len(args) == 2)
-        buff = args[0]
-        offset = args[1]
-        return NextUint8(buff, offset)
-    if operation == "NextUint16":
-        assert (len(args) == 2)
-        buff = args[0]
-        offset = args[1]
-        return NextUint16(buff, offset)
-    if operation == "NextUint32":
-        assert (len(args) == 2)
-        buff = args[0]
-        offset = args[1]
-        return NextUint32(buff, offset)
-    if operation == "NextUint64":
-        assert (len(args) == 2)
-        buff = args[0]
-        offset = args[1]
-        return NextUint64(buff, offset)
-    if operation == "NextUint255":
-        assert (len(args) == 2)
-        buff = args[0]
-        offset = args[1]
-        return NextUint255(buff, offset)
-    if operation == "NextBytes":
-        assert (len(args) == 3)
-        buff = args[0]
-        offset = args[1]
-        count = args[2]
-        return NextBytes(buff, offset, count)
-    if operation == "NextVarUint":
-        assert (len(args) == 2)
-        buff = args[0]
-        offset = args[1]
-        return NextVarUint(buff, offset)
-    if operation == "NextVarBytes":
-        assert (len(args) == 2)
-        buff = args[0]
-        offset = args[1]
-        return NextVarBytes(buff, offset)
-    if operation == "NextBytes20":
-        assert (len(args) == 2)
-        buff = args[0]
-        offset = args[1]
-        return NextBytes20(buff, offset)
-    if operation == "NextBytes32":
-        assert (len(args) == 2)
-        buff = args[0]
-        offset = args[1]
-        return NextBytes32(buff, offset)
-    if operation == "NextString":
-        assert (len(args) == 2)
-        buff = args[0]
-        offset = args[1]
-        return NextString(buff, offset)
-    return False
-
 
 def NextBool(buff, offset):
     if offset + 1 > len(buff):
@@ -181,7 +106,6 @@ def NextString(buff, offset):
 def _convertBytesToNum(_bs):
     firstNonZeroPostFromR2L = _getFirstNonZeroPosFromR2L(_bs)
     assert (firstNonZeroPostFromR2L >= 0)
-    Notify(["111", _bs, firstNonZeroPostFromR2L])
     if firstNonZeroPostFromR2L > len(_bs):
         return concat(_bs, b'\x00')
     else:

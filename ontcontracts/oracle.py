@@ -1,3 +1,5 @@
+OntCversion = '2.0.0'
+
 from ontology.builtins import concat, sha256
 from ontology.interop.Ontology.Runtime import Base58ToAddress
 from ontology.interop.System.Action import RegisterAction
@@ -7,7 +9,6 @@ from ontology.interop.System.Runtime import CheckWitness, GetTime, Notify, Seria
 from ontology.interop.System.Storage import GetContext, Get, Put, Delete
 from ontology.libont import bytearray_reverse
 
-# cd6fb4678612081f272052e949ef2309f181e91b
 EXPIRY_TIME = 30
 
 INITIALIZED = "INIT"
