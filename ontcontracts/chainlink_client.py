@@ -1,14 +1,14 @@
 OntCversion = '2.0.0'
-
 from ontology.builtins import sha256, concat
 from ontology.interop.Ontology.Runtime import Base58ToAddress
 from ontology.interop.System.Action import RegisterAction
 from ontology.interop.System.App import DynamicAppCall
 from ontology.interop.System.ExecutionEngine import GetExecutingScriptHash, GetCallingScriptHash
-from ontology.interop.System.Runtime import CheckWitness, Serialize, Notify
+from ontology.interop.System.Runtime import CheckWitness, Serialize
 from ontology.interop.System.Storage import GetContext, Get, Put, Delete
 from ontology.libont import bytearray_reverse
-from ontcontracts.lib.chainlink import initialize
+
+from chainlink_ontology.ont_contracts.chainlink import initialize
 
 AMOUNT_OVERRIDE = 0
 
@@ -31,7 +31,7 @@ ChainlinkFulfilledEvent = RegisterAction("chainlinkFulfilledEvent", "requestId")
 
 ChainlinkCancelledEvent = RegisterAction("chainlinkCancelledEvent", "requestId")
 
-OWNER = Base58ToAddress("AbG3ZgFrMK6fqwXWR1WkQ1d1EYVunCwknu")
+OWNER = Base58ToAddress("AGcWFujmhcya3Zi31qdYsckyAUWpoRktUa")
 
 def Main(operation, args):
     if operation == 'buildChainlinkRequest':
@@ -170,7 +170,6 @@ def updateChainlinkOracleWithENS():
 
 def recordChainlinkFulfillment(sender, requestId):
     assert (sender == Get(GetContext(), concatKey(PENDING_REQUESTS_PREFIX, requestId)))
-    # Notify([sender, Get(GetContext(), concatKey(PENDING_REQUESTS_PREFIX, requestId))])
     Delete(GetContext(), concatKey(PENDING_REQUESTS_PREFIX, requestId))
     ChainlinkFulfilledEvent(requestId)
     return True

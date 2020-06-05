@@ -1,5 +1,5 @@
 ############## COBR Library############
-from ontcontracts.lib.ZeroCopySink import *
+from chainlink_ontology.ont_contracts.lib.ZeroCopySink import *
 
 MAJOR_TYPE_INT = 0
 MAJOR_TYPE_NEGATIVE_INT = 1
@@ -8,6 +8,7 @@ MAJOR_TYPE_STRING = 3
 MAJOR_TYPE_ARRAY = 4
 MAJOR_TYPE_MAP = 5
 MAJOR_TYPE_CONTENT_FREE = 7
+
 
 def encodeType(buf, major, value):
     if value <= 23:
@@ -25,6 +26,10 @@ def encodeType(buf, major, value):
         buf = WriteUint8((major << 5) | 27, buf)
         buf = WriteUint64(value, buf)
     return buf
+
+
+def major_type_int():
+    return 0
 
 
 def encodeIndefiniteLengthType(buf, major):

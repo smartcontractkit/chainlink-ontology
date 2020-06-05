@@ -1,3 +1,5 @@
+OntCversion = '2.0.0'
+
 '''
 Zero Copy Source contract to help serialize data or struct to a series of bytes 
 
@@ -5,11 +7,14 @@ Started: Nov 26th, 2019
 Author: Yinghao Liu
 '''
 
+from ontology.interop.System.Runtime import Notify
+from ontology.libont import str
 from ontology.builtins import concat
 
 '''
 If the returned offset is -1, means the offset is out of the buff's range
 '''
+
 
 def WriteBool(v, buff):
     if v == True:

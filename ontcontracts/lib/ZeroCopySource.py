@@ -1,3 +1,5 @@
+OntCversion = '2.0.0'
+
 '''
 Zero Copy Source contract to help deserialize data or struct from a series of bytes 
 
@@ -5,6 +7,8 @@ Started: Nov 26th, 2019
 Author: Yinghao Liu
 '''
 
+from ontology.interop.System.Runtime import Notify
+from ontology.libont import str
 from ontology.builtins import concat
 
 '''
@@ -106,6 +110,7 @@ def NextString(buff, offset):
 def _convertBytesToNum(_bs):
     firstNonZeroPostFromR2L = _getFirstNonZeroPosFromR2L(_bs)
     assert (firstNonZeroPostFromR2L >= 0)
+    Notify(["111", _bs, firstNonZeroPostFromR2L])
     if firstNonZeroPostFromR2L > len(_bs):
         return concat(_bs, b'\x00')
     else:

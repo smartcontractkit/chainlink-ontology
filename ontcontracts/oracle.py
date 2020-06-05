@@ -1,5 +1,4 @@
 OntCversion = '2.0.0'
-
 from ontology.builtins import concat, sha256
 from ontology.interop.Ontology.Runtime import Base58ToAddress
 from ontology.interop.System.Action import RegisterAction
@@ -13,7 +12,7 @@ EXPIRY_TIME = 30
 
 INITIALIZED = "INIT"
 MINIMUM_CONSUMER_GAS_LIMIT = 100000000
-OWNER = Base58ToAddress("AbG3ZgFrMK6fqwXWR1WkQ1d1EYVunCwknu")
+OWNER = Base58ToAddress("AGcWFujmhcya3Zi31qdYsckyAUWpoRktUa")
 LINKTOKEN_ADDRESS = 'linktokenAddress'
 COMMITMENTS_PRIFX = 'commitments'
 AUTHORIZE_NODES_PREFIX = 'authorizeNodes'
