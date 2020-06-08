@@ -1,5 +1,5 @@
 ############## COBR Library############
-from chainlink_ontology.ont_contracts.lib.ZeroCopySink import *
+from ont_contracts.lib.ZeroCopySink import *
 
 MAJOR_TYPE_INT = 0
 MAJOR_TYPE_NEGATIVE_INT = 1

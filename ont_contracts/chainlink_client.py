@@ -8,7 +8,7 @@ from ontology.interop.System.Runtime import CheckWitness, Serialize
 from ontology.interop.System.Storage import GetContext, Get, Put, Delete
 from ontology.libont import bytearray_reverse
 
-from chainlink_ontology.ont_contracts.chainlink import initialize
+from ont_contracts.chainlink import initialize
 
 AMOUNT_OVERRIDE = 0
 

@@ -1,7 +1,7 @@
 ############ Chainlink Library#########
 
-from chainlink_ontology.ont_contracts.lib.CBOR import *
-from chainlink_ontology.ont_contracts.lib.ZeroCopySink import *
+from ont_contracts.lib.CBOR import *
+from ont_contracts.lib.ZeroCopySink import *
 
 def initialize(id, callbackAddress, callbackFunction):
     return [id, callbackAddress, callbackFunction, 0, None]
